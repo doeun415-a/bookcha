@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://occoo.cafe24.com:3306/occoo?serverTimezone=UTC" >
+		</property>
+		<property name="username" value="occoo"></property>
+		<property name="password" value="ehdms795"></property>
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+         <property name="dataSource" ref="dataSource"></property>
+         <property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+         <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
+    </bean>
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- scan -->
+	<context:component-scan
+		base-package="com.myhome.dao"></context:component-scan>
+	<context:component-scan
+		base-package="com.myhome.pinball"></context:component-scan>
+	<context:component-scan
+		base-package="com.myhome.service"></context:component-scan>
+	<context:component-scan
+		base-package="com.myhome.vo"></context:component-scan>
+</beans>

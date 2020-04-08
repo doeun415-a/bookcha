@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="searchMapper">
+    <select id="getSearchItem" parameterType="String" resultType="com.myhome.vo.SearchItemVo">
+        select distinct item from MY_HOME_BASE where item LIKE CONCAT('%', #{item}, '%')
+    </select>
+</mapper>

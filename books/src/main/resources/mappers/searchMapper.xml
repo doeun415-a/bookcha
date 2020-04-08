@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="searchMapper">
+    <select id="getSearchItem" parameterType="String" resultType="com.myhome.vo.SearchItemVo">
+        select distinct place from wifi where place LIKE CONCAT('%', #{item}, '%')
+    </select>
+    <select id="getMainSearch" parameterType="String" resultType="com.myhome.vo.MainSearchVO">
+        SELECT place, placeDtl, service
+          from wifi A
+          where place = #{item}
+    </select>
+</mapper>
